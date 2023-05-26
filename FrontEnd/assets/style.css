@@ -125,6 +125,39 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+form {
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+form input {
+	position: fixed;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+
+form input:checked + label{
+	color: #FFFFFF;
+	background-color: #1D6154;
+}
+
+form label {
+	padding: 9px 30px;
+	border: 1px solid #1D6154;
+	border-radius:45px;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 16px;
+	color: #1D6154;
+	background-color: #FFFFFF;
+	transition: .2s;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
