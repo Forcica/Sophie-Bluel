@@ -1,9 +1,12 @@
+// Import des images via JS
+
 function createImg(data) {
     const containImg = document.getElementsByClassName('gallery')[0];
 
     data.forEach(item => {
         const figure = document.createElement('figure');
         containImg.appendChild(figure)
+        figure.dataset.category = item.category.name;
 
         const img = document.createElement('img');
         img.src = item.imageUrl;
@@ -16,23 +19,62 @@ function createImg(data) {
     });
 }
 
+// Ajout des filtres pour classifier les images
+
 function buttonRadio(data) {
     const containForm = document.getElementsByClassName('formPortfolio')[0];
-    const categoryNames = data.map(item => item.category.name);
+    const categorySet = new Set();
 
-    categoryNames.forEach(categoryName => {
-        const input = document.createElement('input');
-        input.type = 'radio';
-        input.name = 'filtreCategorie';
-        input.id = categoryName;
-        containForm.appendChild(input)
+    const figures = document.querySelectorAll('.gallery figure');
 
-        const label = document.createElement('label');
-        label.for = categoryName;
-        label.textContent = categoryName;
-        containForm.appendChild(label)
+    const filterImages = (event) => {
+        const selectCategory = event.target.id;
+
+        figures.forEach(figure => {
+            if (selectCategory === 'filterCategorieAll' || figure.dataset.category === selectCategory) {
+                figure.style.display = 'block';
+            } else {
+                figure.style.display = 'none';
+            }
+        });
+    };
+
+    const inputAllFilter = document.createElement('input');
+    inputAllFilter.type = 'radio';
+    inputAllFilter.name = 'filtreCategorie';
+    inputAllFilter.id = 'filterCategorieAll';
+    inputAllFilter.addEventListener('change', filterImages);
+    containForm.appendChild(inputAllFilter)
+
+    const labelAllFilter = document.createElement('label');
+    labelAllFilter.htmlFor = 'filterCategorieAll';
+    labelAllFilter.textContent = 'Toutes';
+    containForm.appendChild(labelAllFilter)
+
+
+    data.forEach(item => {
+        const categoryName = item.category.name;
+
+        if(!categorySet.has(categoryName)) {
+            const input = document.createElement('input');
+            input.type = 'radio';
+            input.name = 'filtreCategorie';
+            input.id = categoryName;
+            input.addEventListener('change', filterImages);
+            containForm.appendChild(input)
+    
+            const label = document.createElement('label');
+            label.htmlFor = categoryName;
+            label.textContent = categoryName;
+            containForm.appendChild(label)
+
+            categorySet.add(categoryName)
+        }
     });
 }
+
+
+// Connexion à l'API
 
 fetch('http://localhost:5678/api/works')
     .then(response => response.json())
