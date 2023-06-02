@@ -22,11 +22,14 @@ function createImg(data) {
 // Ajout des filtres pour classifier les images
 
 function buttonRadio(data) {
+    // Recupère le nom de class 'formPortfolio' pour créer la variable 'containForm'
     const containForm = document.getElementsByClassName('formPortfolio')[0];
     const categorySet = new Set();
 
+    // Recupère une class et une balise HTML pour créer la variable 'figures'
     const figures = document.querySelectorAll('.gallery figure');
 
+    // Création de la variable 'filterImages' permettant l'ajout de l'event listener cf L.49
     const filterImages = (event) => {
         const selectCategory = event.target.id;
 
@@ -39,6 +42,7 @@ function buttonRadio(data) {
         });
     };
 
+    // Recupération des filtres avec les éléments présents dans l'API
     const inputAllFilter = document.createElement('input');
     inputAllFilter.type = 'radio';
     inputAllFilter.name = 'filtreCategorie';
@@ -51,7 +55,7 @@ function buttonRadio(data) {
     labelAllFilter.textContent = 'Toutes';
     containForm.appendChild(labelAllFilter)
 
-
+    // Vérification pour chaque filtre / image si il contient les informations adéquates 
     data.forEach(item => {
         const categoryName = item.category.name;
 
@@ -73,8 +77,7 @@ function buttonRadio(data) {
     });
 }
 
-
-// Connexion à l'API
+// Connexion à l'API pour la page principale
 
 fetch('http://localhost:5678/api/works')
     .then(response => response.json())
