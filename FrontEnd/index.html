@@ -10,8 +10,16 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="./assets/script.js"></script>
+	<script src="https://kit.fontawesome.com/f49d03dbe2.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<div class="editionMode">
+	<i class="fa-regular fa-pen-to-square"></i>
+	<p>Mode édition</p>
+	<div class="publishEditMode">
+		<button>publier les changements</button>
+	</div>
+</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -36,11 +44,59 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="pushEditMode">
+			<h2>Mes Projets</h2>
+			<button type="button"><i class="fa-regular fa-pen-to-square"></i>modifier</button>
+		</div>
 		<form action="" class="formPortfolio" id="formPortfolio">
 		</form>
 		<div class="gallery"></div>
 	</section>
+	<div class="modaleBackground">
+		<div class="modaleManagePictures">
+			<div class="headerModale">
+				<button type="button"><i class="fa-solid fa-xmark"></i></button>
+				<h3>Galerie Photo</h3>
+			</div>
+			<div class="bodyModale">
+				<article class="imageTestModale">
+					<img src="./assets/images/abajour-tahina.png" alt="">
+					<div class="buttonMovingDelete">
+						<button type="button" class="moveImage"><i class="fa-solid fa-up-down-left-right"></i></button>
+						<button type="button" class="deleteImage"><i class="fa-solid fa-trash-can"></i></button>
+					</div>
+					<button type="button" class="editImage">éditer</button>
+				</article>
+				<img src="./assets/images/appartement-paris-v.png" alt="">
+				<img src="./assets/images/appartement-paris-x.png" alt="">
+				<img src="./assets/images/appartement-paris-xviii.png" alt="">
+				<img src="./assets/images/bar-lullaby-paris.png" alt="">
+				<img src="./assets/images/hotel-first-arte-new-delhi.png" alt="">
+				<img src="./assets/images/la-balisiere.png" alt="">
+				<img src="./assets/images/le-coteau-cassis.png" alt="">
+				<img src="./assets/images/bar-lullaby-paris.png" alt="">
+				<img src="./assets/images/bar-lullaby-paris.png" alt="">
+				<img src="./assets/images/bar-lullaby-paris.png" alt="">
+			</div>
+			<div class="footerModale">
+				<button type="button" id="buttonAjoutPhoto">Ajouter une photo</button>
+				<button type="button" id="buttonSupprimerGalerie">Supprimer la galerie</button>
+			</div>
+		</div>
+		<!-- <div class="modaleAddingPictures">
+			<div class="headerModale">
+				<button type="button"><i class="fa-solid fa-arrow-left"></i></button>
+				<button type="button"><i class="fa-solid fa-xmark"></i></button>
+				<h3>Ajout Photo</h3>
+			</div>
+			<div class="bodyModale">
+			</div>
+			<div class="footerModale">
+				<button type="button" id="buttonAjoutPhoto">Ajouter une photo</button>
+				<button type="button" id="buttonSupprimerGalerie">Supprimer la galerie</button>
+			</div>
+		</div> -->
+	</div>
 	<section id="contact">
 		<h2>Contact</h2>
 		<p>Vous avez un projet ? Discutons-en !</p>
