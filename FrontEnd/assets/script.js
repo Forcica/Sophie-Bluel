@@ -19,6 +19,88 @@ function createImg(data) {
     });
 }
 
+function createImgModal(data) {
+    const containImg = document.getElementsByClassName('bodyModale')[0];
+
+    data.forEach(item => {
+        const article = document.createElement('article');
+        article.classList.add('imageTestModale')
+        containImg.appendChild(article)
+        article.dataset.category = item.category.name;
+
+        const img = document.createElement('img');
+        img.src = item.imageUrl;
+        img.alt = item.title;
+        article.appendChild(img)
+
+        const deleteDiv = document.createElement('div');
+        deleteDiv.classList.add('buttonMovingDelete')
+        article.appendChild(deleteDiv)
+
+        // Ajout du bouton modifier emplacement image
+        const moveImgBtn = document.createElement('button');
+        moveImgBtn.type = 'button'
+        moveImgBtn.classList.add('moveImage')
+        deleteDiv.appendChild(moveImgBtn)
+
+        // Ajout de l'icone supprimer bouger
+        const moveImgIcon = document.createElement('i');
+        moveImgIcon.classList.add('fa-solid', 'fa-up-down-left-right')
+        moveImgBtn.appendChild(moveImgIcon)
+
+        // Ajout du bouton supprimer image 
+        const deleteImageBtn = document.createElement('button');
+        deleteImageBtn.type = 'button'
+        deleteImageBtn.classList.add('deleteImage')
+        deleteDiv.appendChild(deleteImageBtn)
+
+        deleteImageBtn.addEventListener('click', () => {
+            const index = data.findIndex(item => item.id === item.id);
+
+            if (index !== -1) {
+                deleteItemAPI(item.id)
+                    .then(() => {
+                        article.remove();
+                        data.splice(index, 1);
+                    })
+                    .catch(error => {
+                        console.log("ERROR");
+                    });
+            }
+        });
+
+        // Ajout de l'icone supprimer image
+        const deleteImgIcon = document.createElement('i');
+        deleteImgIcon.classList.add('fa-solid', 'fa-trash-can')
+        deleteImageBtn.appendChild(deleteImgIcon)
+
+        const editImageBtn = document.createElement('button');
+        editImageBtn.type = 'button'
+        editImageBtn.classList.add('editImage')
+        editImageBtn.textContent = 'éditer';
+        article.appendChild(editImageBtn)
+    });
+}
+
+function deleteItemAPI(itemId) {
+    const url = `http://localhost:5678/api/works/${itemId}`;
+
+    return fetch(url, {
+        method: 'DELETE',
+        headers: {
+            accept: "*/*",
+            Authorization: `Bearer ${token}`,
+          },
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('connard, élément suppr');
+        } else {
+            throw new Error('Erreur sale pd');
+        }
+    });
+}
+
 // Ajout des filtres pour classifier les images
 
 function buttonRadio(data) {
@@ -83,6 +165,7 @@ fetch('http://localhost:5678/api/works')
     .then(response => response.json())
     .then(data => {
         createImg(data);
+        createImgModal(data);
         buttonRadio(data);
     })
     .catch(error => {

@@ -25,7 +25,7 @@ async function loginUser() {
 
     .then((response) => {
         if (response.ok) {
-            window.location.href = "/FrontEnd/index.html";
+            window.location.href = "../index.html";
             return response.json();
         } else {
             alert("Email ou mot de passe erronés");
