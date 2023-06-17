@@ -286,6 +286,41 @@ footer nav ul {
 
 /* EDIT MODE */
 
+.articlePrincipal i {
+	font-size: 20px;
+	margin-right: 8px;
+}
+
+.articlePrincipal button {
+	font-size: 14px;
+	font-family: 'Work Sans';
+	text-decoration: none;
+	cursor: pointer;
+	background-color: transparent;
+	border: none;
+	padding: 0;
+    top: -30px;
+    position: relative;
+	display: none;
+}
+
+.imgPrincipale i {
+	font-size: 20px;
+	margin-right: 8px;
+}
+
+.imgPrincipale button {
+	font-size: 14px;
+	font-family: 'Work Sans';
+	text-decoration: none;
+	cursor: pointer;
+	background-color: transparent;
+	border: none;
+    margin-right: auto;
+    margin-left: 9%;
+	display: none;
+}
+
 .editionMode {
 	background-color: black;
 	color: white;
@@ -379,29 +414,7 @@ footer nav ul {
 .headerModale {
 	display: flex;
 	flex-direction: column;
-	display: flex;
-	justify-content: space-between;
 	align-items: center;
-}
-
-#headerModaleAdding {
-	margin: 0 0 0 0;
-	display: flex;
-}
-
-#headerModaleAdding button {
-	margin: 0 0 0 0;
-	display: flex;
-}
-
-#headerModaleAdding button:nth-child(2) {
-	margin-left: auto;
-}
-
-.buttonHeaderModale {
-	display: flex;
-	flex-direction: row;
-	width: 100%;
 }
 
 .headerModale button {
@@ -419,6 +432,17 @@ footer nav ul {
 	font-size: 16px;
 }
 
+.btnDivHeaderModale {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: 100%;
+}
+
+.btnDivHeaderModale #buttonReturnModale {
+	margin: 26px auto 10px 30px;
+}
+
 .headerModale h3 {
 	font-family: Work Sans;
 	font-size: 26px;
@@ -426,6 +450,7 @@ footer nav ul {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-top: 0;
 }
 
 .bodyModale {
