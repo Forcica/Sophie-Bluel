@@ -159,6 +159,21 @@ function buttonRadio(data) {
     });
 }
 
+function createOptions(data) {
+    const categories = [...new Set(data.map(item => item.category.name))];
+        
+    console.log(categories);
+
+    const selectElement = document.getElementById('select');
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.textContent = category;
+        selectElement.appendChild(option);
+    });
+}
+
+
+
 // Connexion à l'API pour la page principale
 
 fetch('http://localhost:5678/api/works')
@@ -167,6 +182,7 @@ fetch('http://localhost:5678/api/works')
         createImg(data);
         createImgModal(data);
         buttonRadio(data);
+        createOptions(data);
     })
     .catch(error => {
         console.error(error);
