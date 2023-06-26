@@ -42,8 +42,11 @@ validateBtn.addEventListener("click", async () => {
         const formData = new FormData();
         
         formData.append("title", valueTitle);
-        formData.append("category", inputCategory);
-        formData.append("image", filesInput);
+        formData.append("category_id", inputCategory); // Utilisation de l'identifiant de la catégorie
+        
+        if (filesInput) {
+            formData.append("image", filesInput);
+        }
 
         try {
             const response = await fetch('http://localhost:5678/api/works', {
@@ -55,17 +58,14 @@ validateBtn.addEventListener("click", async () => {
             });
             if(response.ok) {
                 const data = await response.json();
-                console.log("Nouvel élémént", data);
+                console.log("Nouvel élément :", data);
             } else {
-                console.log("Erreur", response.status);
+                console.log("Erreur :", response.status);
             }
         } catch (error) {
-            console.error("Erreur ", error);
+            console.error("Erreur :", error);
         }
     } else {
-        alert('Formulaire incomplet')
+        alert('Formulaire incomplet');
     }
-
-    console.log(valueTitle + filesInput + inputCategory)
-
-})
+});

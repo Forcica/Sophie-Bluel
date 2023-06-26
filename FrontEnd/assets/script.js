@@ -82,6 +82,8 @@ function createImgModal(data) {
     });
 }
 
+// Supprimer une image 
+
 function deleteItemAPI(itemId) {
     const url = `http://localhost:5678/api/works/${itemId}`;
 
@@ -159,10 +161,13 @@ function buttonRadio(data) {
     });
 }
 
+// -> Ajouter une erreur plutot qu'une alerte si formulaire incomplet en html directement
+
 function createOptions(data) {
+    // -> Faire un getcategory pour récupérer id et valeurs
     const categories = [...new Set(data.map(item => item.category.name))];
         
-    console.log(categories);
+    console.log(data);
 
     const selectElement = document.getElementById('select');
     categories.forEach(category => {
@@ -171,8 +176,6 @@ function createOptions(data) {
         selectElement.appendChild(option);
     });
 }
-
-
 
 // Connexion à l'API pour la page principale
 
