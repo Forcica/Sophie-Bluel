@@ -22,6 +22,25 @@ login.addEventListener("click", () => {
   }
 });
 
+async function createOptions() {
+  // -> Faire un getcategory pour récupérer id et valeurs
+  // const categories = [...new Set(data.map(item => item.category.name))];
+  
+  const response = await fetch("http://" + window.location.hostname + ":5678/api/categories");
+  const categories = await response.json();
+
+  console.log(categories);
+
+  const selectElement = document.getElementById('select');
+  categories.forEach(category => {
+      const option = document.createElement('option');
+      console.log(category);
+      option.textContent = category.name;
+      option.value = category.id;
+      selectElement.appendChild(option);
+  });
+}
+
 // Première Modale 
 
 function openModal() {
@@ -45,6 +64,7 @@ document.getElementById('closeModal').addEventListener('click', closeModal);
 
 addPhotoFrame.addEventListener("click", () => {
   document.querySelector('.modaleAddingPictures').style.display = 'flex';
+  createOptions();
 });
 
 modaleBackground.addEventListener('click', function(event) {
