@@ -57,11 +57,19 @@ function createImgModal(data) {
         deleteImageBtn.addEventListener('click', () => {
             const index = data.findIndex(item => item.id === item.id);
 
+            const containImgSuppr = document.getElementsByClassName('gallery')[0];
+            const containImgModalSuppr = document.getElementsByClassName('bodyModale')[0];
+            const containFormSuppr = document.getElementsByClassName('formPortfolio')[0];
+
             if (index !== -1) {
                 deleteItemAPI(item.id)
                     .then(() => {
                         article.remove();
                         data.splice(index, 1);
+                        containImgSuppr.innerHTML = ""; 
+                        containImgModalSuppr.innerHTML = "";
+                        containFormSuppr.innerHTML = "";
+                        fetchGetElement();
                     })
                     .catch(error => {
                         console.log("ERROR");
@@ -96,9 +104,9 @@ function deleteItemAPI(itemId) {
     })
     .then(response => {
         if (response.ok) {
-            console.log('connard, élément suppr');
+            console.log('Element bien supprimé');
         } else {
-            throw new Error('Erreur sale pd');
+            throw new Error('Vous rencontrez une erreur');
         }
     });
 }
@@ -165,13 +173,18 @@ function buttonRadio(data) {
 
 // Connexion à l'API pour la page principale
 
-fetch('http://localhost:5678/api/works')
-    .then(response => response.json())
-    .then(data => {
-        createImg(data);
-        createImgModal(data);
-        buttonRadio(data);
-    })
-    .catch(error => {
-        console.error(error);
-    });
+const fetchGetElement = async () => {
+    fetch('http://localhost:5678/api/works')
+        .then(response => response.json())
+        .then(data => {
+            createImg(data);
+            createImgModal(data);
+            buttonRadio(data);
+            document.querySelector('.modaleAddingPictures').style.display = "none";
+        })
+        .catch(error => {
+            console.error(error);
+        });
+};
+
+fetchGetElement();

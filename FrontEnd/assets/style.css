@@ -87,18 +87,18 @@ h2{
 	font-size: 30px;
 	color: #1D6154
 }
-nav ul {
+nav {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
 
 }
-nav li {
+nav a {
 	padding: 0 10px;
 	font-size: 1.2em;
 }
 
-li:hover {
+a:hover {
 	color: #B1663C;
 }
 #introduction {
@@ -655,8 +655,24 @@ footer nav ul {
 	font-family: 'Syne';
 }
 
-#logoutBtn {
-	display: none;
-	background: red;
+.footerModale #buttonValidateAdding.active {
+	background: #1D6154 !important;
 }
 
+/* NOTIFICATION DERREUR AU LOGIN DE LUTILISATEUR */
+
+#errorMailMdp {
+	right: 80px;
+	position: fixed;
+	display: none;
+	color: #FFFFFF;
+	background: #d82323;
+	box-shadow: #ff000079 0px 0px 20px 0px;
+	margin-top: 20px;
+	padding: 10px 10px;
+	width: max-content;
+	text-align: center;
+	font-family: 'Work Sans';
+	font-size: 14px;
+	border-radius: 5px;
+}

@@ -21,19 +21,17 @@
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
-		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<a href="./assets/login.html" id="loginBtn"><li>login</li></a>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-		</ul>
+		<a href="">projets</a>
+		<a href="">contact</a>
+		<a href="./assets/login.html" id="loginBtn">login</a>
+		<a href=""><img src="./assets/icons/instagram.png" alt="Instagram"></a>
 	</nav>
 </header>
 <main>
 	<section id="introduction">
 		<figure class="imgPrincipale">
 			<img src="./assets/images/sophie-bluel.png" alt="">
-			<button type="button" id="modifPhotoPrincipale" class="edit"><i class="fa-regular fa-pen-to-square"></i>modifier</button>
+			<button type="button" id="modifPhotoPrincipale2" class="edit"><i class="fa-regular fa-pen-to-square"></i>modifier</button>
 		</figure>
 		<article class="articlePrincipal">
 			<button type="button" id="modifPhotoPrincipale" class="edit"><i class="fa-regular fa-pen-to-square"></i>modifier</button>
@@ -48,8 +46,7 @@
 			<h2>Mes Projets</h2>
 			<button type="button" id="openModal" class="edit"><i class="fa-regular fa-pen-to-square"></i>modifier</button>
 		</div>
-		<form action="" class="formPortfolio" id="formPortfolio">
-		</form>
+		<form class="formPortfolio" id="formPortfolio"></form>
 		<div class="gallery"></div>
 	</section>
 	<div class="modaleBackground">
@@ -84,12 +81,11 @@
 							<path d="M7.00004 40C7.23404 40 7.47004 39.918 7.66004 39.751L23.973 25.389L34.275 35.69C34.666 36.081 35.298 36.081 35.689 35.69C36.08 35.299 36.08 34.667 35.689 34.276L30.882 29.469L40.063 19.415L51.324 29.738C51.731 30.111 52.364 30.083 52.737 29.676C53.11 29.269 53.083 28.636 52.675 28.263L40.675 17.263C40.479 17.084 40.218 16.995 39.955 17.001C39.69 17.013 39.44 17.13 39.261 17.326L29.467 28.053L24.724 23.31C24.35 22.937 23.752 22.918 23.356 23.266L6.33904 38.249C5.92404 38.614 5.88404 39.246 6.24904 39.661C6.44704 39.886 6.72304 40 7.00004 40Z" fill="#B9C5CC"/>
 						</svg>
 						<label id="addingUploadImageLabel" for="addingUploadImageInput">+ Ajouter photo</label>
-						<input type="file" id="addingUploadImageInput" accept="image/jpeg, image/png" maxFileSize="4M"></input>
+						<input type="file" id="addingUploadImageInput" accept="image/jpeg, image/png">
 						<p id="addingUploadImageP">jpg, png : 4mo max</p>
 					</div>
 					<div class="selectTitleCategory">
 						<label for="title">Titre</label><input type="text" name="title" id="title"/>
-						<label for="selectCategoryLabel">Catégorie</label>
 						<select id="select" name="select">
 						</select>
 					</div>

@@ -9,6 +9,18 @@ const pFile = document.getElementById("addingUploadImageP");
 fileInput.addEventListener("change", (event) => {
     const selectFile = event.target.files[0];
 
+    var file = fileInput.files[0];
+
+    if (file) {
+        var fileSize = file.size;
+        var fileSizeInMB = fileSize / (1024 * 1024);
+
+        if (fileSizeInMB > 4) {
+            alert("Fichier trop volumineuux.");
+            fileInput.value = "";
+        }
+    }
+
     if (selectFile && selectFile.type.startsWith('image/')) {
         const reader = new FileReader();
 
@@ -26,12 +38,37 @@ fileInput.addEventListener("change", (event) => {
             pFile.style.display = "none";
         });
         reader.readAsDataURL(selectFile);
+        handleInputsChange();
+
     }
 });
 
 const titleInput = document.getElementById("title");
 const categoryInput = document.getElementById("select");
 const validateBtn = document.getElementById("buttonValidateAdding");
+
+titleInput.addEventListener("input", handleInputsChange);
+categoryInput.addEventListener("change", handleInputsChange);
+
+document.addEventListener("DOMContentLoaded", handleInputsChange);
+
+function handleInputsChange() {
+    const button = document.getElementById("buttonValidateAdding");
+
+    const isTitleInputFilled = titleInput.value.trim() !== "";
+    const isCategoryInputFilled = categoryInput.value.trim() !== "";
+    const isFileInputFilled = fileInput.files && fileInput.files.length > 0;
+
+    if (isTitleInputFilled && isCategoryInputFilled && isFileInputFilled) {
+        button.classList.add("active");
+    } else {
+        button.classList.remove("active");
+    }
+}
+
+const containImgPage = document.getElementsByClassName('gallery')[0];
+const containImgModalPage = document.getElementsByClassName('bodyModale')[0];
+const containFormPage = document.getElementsByClassName('formPortfolio')[0];
 
 validateBtn.addEventListener("click", async () => {
     const valueTitle = titleInput.value;
@@ -45,10 +82,6 @@ validateBtn.addEventListener("click", async () => {
         formData.append("category", inputCategory);
         formData.append("image", filesInput);
 
-        console.log("title",valueTitle)
-        console.log("category", inputCategory)
-        console.log("image", filesInput)
-
         try {
             const response = await fetch('http://localhost:5678/api/works', {
                 method: "POST",
@@ -60,6 +93,11 @@ validateBtn.addEventListener("click", async () => {
             if(response.ok) {
                 const data = await response.json();
                 console.log("Nouvel élémént", data);
+
+                containImgPage.innerHTML = ""; 
+                containImgModalPage.innerHTML = ""; 
+                containFormPage.innerHTML = ""; 
+                fetchGetElement();
             } else {
                 console.log("Erreur", response.status);
             }

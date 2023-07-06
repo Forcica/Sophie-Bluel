@@ -11,6 +11,8 @@ async function loginUser() {
 
     const url = "http://localhost:5678/api/users/login";
 
+    let isError = false;
+
     await fetch(url, {
         method: "POST",
         body: JSON.stringify({
@@ -28,7 +30,7 @@ async function loginUser() {
             window.location.href = "../index.html";
             return response.json();
         } else {
-            alert("Email ou mot de passe erronés");
+            isError = true;
         }
     })
 
@@ -38,6 +40,11 @@ async function loginUser() {
     })
 
     .catch((error) => console.error(error));
+
+    if (isError) {
+        document.querySelector("#errorMailMdp").style.display = "block";
+        return;
+    }
 
     const token = localStorage.token;
     

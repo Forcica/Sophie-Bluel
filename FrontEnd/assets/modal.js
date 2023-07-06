@@ -24,24 +24,19 @@ login.addEventListener("click", () => {
 
 async function createOptions() {
   // -> Faire un getcategory pour récupérer id et valeurs
-  // const categories = [...new Set(data.map(item => item.category.name))];
-  
   const response = await fetch("http://" + window.location.hostname + ":5678/api/categories");
   const categories = await response.json();
-
-  console.log(categories);
 
   const selectElement = document.getElementById('select');
   categories.forEach(category => {
       const option = document.createElement('option');
-      console.log(category);
       option.textContent = category.name;
       option.value = category.id;
       selectElement.appendChild(option);
   });
 }
 
-// Première Modale 
+// Première Modale = Galerie Photo
 
 function openModal() {
   document.querySelector('.modaleBackground').style.pointerEvents = 'visible';
@@ -57,6 +52,9 @@ function closeModal() {
 
   document.querySelector('.modaleManagePictures').style.transform = 'translateY(20px)';
   document.querySelector('.modaleManagePictures').style.opacity = '0';
+
+  document.querySelector('.modaleAddingPictures').style.transform = 'translateY(20px)';
+  document.querySelector('.modaleAddingPictures').style.opacity = '0';
 }
 
 document.getElementById('openModal').addEventListener('click', openModal);
@@ -70,10 +68,11 @@ addPhotoFrame.addEventListener("click", () => {
 modaleBackground.addEventListener('click', function(event) {
   if (event.target === modaleBackground) {
     closeModal();
+    closeModal2();
   } 
 });
 
-// Deuxième modale 
+// Deuxième modale = Ajout d'une photo
 
 function openModal2() {
   document.querySelector('.modaleBackground').style.pointerEvents = 'visible';
@@ -89,6 +88,7 @@ function closeModal2() {
 
   document.querySelector('.modaleAddingPictures').style.transform = 'translateY(20px)';
   document.querySelector('.modaleAddingPictures').style.opacity = '0';
+  document.querySelector('.modaleAddingPictures').style.display = 'none';
 }
 
 document.getElementById('openModal').addEventListener('click', openModal2);
@@ -97,4 +97,3 @@ document.getElementById('closeModal2').addEventListener('click', closeModal2);
 retourModale.addEventListener('click', () => {
   document.querySelector('.modaleAddingPictures').style.display = 'none';
 });
-
