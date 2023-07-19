@@ -169,8 +169,6 @@ function buttonRadio(data) {
     });
 }
 
-// -> Ajouter une erreur plutot qu'une alerte si formulaire incomplet en html directement
-
 // Connexion à l'API pour la page principale
 
 const fetchGetElement = async () => {
