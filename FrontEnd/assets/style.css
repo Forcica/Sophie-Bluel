@@ -676,3 +676,22 @@ footer nav ul {
 	font-size: 14px;
 	border-radius: 5px;
 }
+
+/* Notification DERREUR A LAJOUT DUNE IMAGE */
+
+#errorNotification {
+	left: 140px;
+	top: 115px;
+	position: fixed;
+	display: none;
+	color: #FFFFFF;
+	background: #d82323;
+	box-shadow: #ff000079 0px 0px 20px 0px;
+	margin-top: 20px;
+	padding: 10px 10px;
+	width: max-content;
+	text-align: center;
+	font-family: 'Work Sans';
+	font-size: 14px;
+	border-radius: 5px;
+}

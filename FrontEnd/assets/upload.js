@@ -74,41 +74,72 @@ validateBtn.addEventListener("click", async () => {
     const valueTitle = titleInput.value;
     const filesInput = inputFile.files[0];
     const inputCategory = categoryInput.value;
-
-    if (valueTitle && filesInput && inputCategory) {
-        const formData = new FormData();
-        
-        formData.append("title", valueTitle);
-        formData.append("category", inputCategory);
-        formData.append("image", filesInput);
-
-        try {
-            const response = await fetch('http://localhost:5678/api/works', {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-                body: formData,
-            });
-            if(response.ok) {
-                const data = await response.json();
-                console.log("Nouvel élémént", data);
-
-                containImgPage.innerHTML = ""; 
-                containImgModalPage.innerHTML = ""; 
-                containFormPage.innerHTML = ""; 
-                fetchGetElement();
-            } else {
-                console.log("Erreur", response.status);
-            }
-        } catch (error) {
-            console.error("Erreur ", error);
-        }
-    } else {
-        alert('Formulaire incomplet')
+  
+    const errorNotification = document.querySelector('#errorNotification');
+    errorNotification.textContent = '';
+    errorNotification.style.display = 'none';
+  
+    let isError = false;
+  
+    if (!valueTitle) {
+      errorNotification.textContent = 'Veuillez entrer un titre.';
+      errorNotification.style.display = 'block';
+      isError = true;
     }
-
-    // --> Mettre à jour l'HTML de ma galeriepour que le refresh après l'ajout d'une image se fasse dynamiquement 
-    // --> Mettre à jour en même temps la modale
-
-})
+  
+    if (!filesInput) {
+      errorNotification.textContent = 'Veuillez sélectionner une image.';
+      errorNotification.style.display = 'block';
+      isError = true;
+    }
+  
+    if (isError) {
+      return;
+    }
+  
+    const formData = new FormData();
+  
+    formData.append("title", valueTitle);
+    formData.append("category", inputCategory);
+    formData.append("image", filesInput);
+  
+    try {
+      const response = await fetch('http://localhost:5678/api/works', {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Nouvel élément :", data);
+  
+        containImgPage.innerHTML = "";
+        containImgModalPage.innerHTML = "";
+        containFormPage.innerHTML = "";
+        fetchGetElement();
+  
+        // Réinitialiser les champs de la modale
+        titleInput.value = "";
+        inputFile.value = null;
+        // Réinitialiser l'aperçu de l'image dans la modale
+        const inputFileImg = document.querySelector('.inputFileImg');
+        if (inputFileImg) {
+          inputFileImg.remove();
+        }
+        svgFile.style.display = "block";
+        labelFile.style.display = "block";
+        inputFile.style.display = "block";
+        pFile.style.display = "block";
+      } else {
+        const errorMessage = await response.text();
+        console.log("Erreur :", response.status, errorMessage);
+      }
+    } catch (error) {
+      console.error("Erreur :", error);
+    }
+});
+  
+  
