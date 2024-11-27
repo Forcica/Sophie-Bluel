@@ -1,4 +1,8 @@
 // Récupération du token stocké dans le local storage
+const API_URL = window.location.hostname === 'forcica.github.io' 
+  ? 'https://sophie-bluel-api.herokuapp.com/api'
+  : 'http://localhost:5678/api';
+
 const token = localStorage.token;
 
 // Récupération des éléments du DOM
@@ -30,7 +34,7 @@ login.addEventListener("click", () => {
 // Fonction asynchrone pour créer les options du sélecteur de catégories
 async function createOptions() {
   // Récupération des catégories depuis l'API
-  const response = await fetch("http://" + window.location.hostname + ":5678/api/categories");
+  const response = await fetch(`${API_URL}/categories`);
   const categories = await response.json();
 
   // Création des options pour le sélecteur de catégories

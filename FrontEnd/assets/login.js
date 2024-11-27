@@ -1,3 +1,7 @@
+const API_URL = window.location.hostname === 'forcica.github.io' 
+  ? 'https://sophie-bluel-api.herokuapp.com/api'
+  : 'http://localhost:5678/api';
+
 // Récupération de l'élément bouton "Connecter"
 const connect = document.querySelector("input[type=submit]");
 

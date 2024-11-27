@@ -1,3 +1,7 @@
+const API_URL = window.location.hostname === 'forcica.github.io' 
+  ? 'https://sophie-bluel-api.herokuapp.com/api'
+  : 'http://localhost:5678/api';
+
 // Récupération des éléments du DOM
 const fileInput = document.getElementById("addingUploadImageInput");
 const fileContainer = document.getElementsByClassName("addingUploadImage");
@@ -118,7 +122,7 @@ validateBtn.addEventListener("click", async () => {
   
     try {
         // Envoi des données au serveur via une requête POST
-        const response = await fetch('http://localhost:5678/api/works', {
+        const response = await fetch(`${API_URL}/works`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`, // Envoie le token dans l'en-tête de la requête pour l'authentification

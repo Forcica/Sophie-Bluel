@@ -67,21 +67,21 @@ function createImgModal(data) {
             const containFormSuppr = document.getElementsByClassName('formPortfolio')[0];
 
             if (index !== -1) {
-                // Appel de la fonction deleteItemAPI pour supprimer l'image de l'API
-                deleteItemAPI(item.id)
-                    .then(() => {
-                        // Suppression de l'élément de la modale et des tableaux de données
-                        article.remove();
-                        data.splice(index, 1);
-                        // Nettoyage des conteneurs principaux pour recharger les données
-                        containImgSuppr.innerHTML = "";
-                        containImgModalSuppr.innerHTML = "";
-                        containFormSuppr.innerHTML = "";
-                        fetchGetElement(); // Recharge les données après la suppression
-                    })
-                    .catch(error => {
-                        console.log("ERROR");
-                    });
+               // Appel de la fonction deleteItemAPI pour supprimer l'image de l'API
+               deleteItemAPI(item.id)
+                  .then(() => {
+                     // Suppression de l'élément de la modale et des tableaux de données
+                     article.remove();
+                     data.splice(index, 1);
+                     // Nettoyage des conteneurs principaux pour recharger les données
+                     containImgSuppr.innerHTML = "";
+                     containImgModalSuppr.innerHTML = "";
+                     containFormSuppr.innerHTML = "";
+                     fetchGetElement(); // Recharge les données après la suppression
+                  })
+                  .catch(error => {
+                     console.log("ERROR");
+                  });
             }
         });
 
@@ -100,7 +100,7 @@ function createImgModal(data) {
 
 // Fonction pour supprimer une image en appelant l'API avec une requête DELETE
 function deleteItemAPI(itemId) {
-    const url = `http://localhost:5678/api/works/${itemId}`;
+    const url = `${API_URL}/works/${itemId}`;
 
     return fetch(url, {
         method: 'DELETE',
@@ -117,7 +117,6 @@ function deleteItemAPI(itemId) {
         }
     });
 }
-
 // Fonction pour ajouter les filtres permettant de classifier les images
 function buttonRadio(data) {
     // Récupère le conteneur pour le formulaire
@@ -176,19 +175,42 @@ function buttonRadio(data) {
     });
 }
 
+// Définition de l'URL de l'API selon l'environnement
+const API_URL = window.location.hostname === 'forcica.github.io' 
+  ? 'https://sophie-bluel-api.herokuapp.com/api' // URL de l'API en production
+  : 'http://localhost:5678/api'; // URL de l'API en local
+
 // Fonction principale pour récupérer les données de l'API et initialiser l'affichage
 const fetchGetElement = async () => {
-    fetch('http://localhost:5678/api/works')
-        .then(response => response.json())
-        .then(data => {
-            createImg(data); // Affiche les images dans la galerie principale
-            createImgModal(data); // Affiche les images dans la modale
-            buttonRadio(data); // Initialise les filtres pour les catégories
-            document.querySelector('.modaleAddingPictures').style.display = "none"; // Masque la modale d'ajout d'images
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    try {
+        const response = await fetch(`${API_URL}/works`);
+        if (!response.ok) {
+            throw new Error('Erreur réseau');
+        }
+        const data = await response.json();
+        createImg(data);
+        createImgModal(data);
+        buttonRadio(data);
+        document.querySelector('.modaleAddingPictures').style.display = "none";
+    } catch (error) {
+        console.error(error);
+        // En cas d'erreur, utiliser des données statiques pour GitHub Pages
+        if (window.location.hostname === 'forcica.github.io') {
+            const staticData = [
+                {
+                    id: 1,
+                    title: "Exemple 1",
+                    imageUrl: "./assets/images/abajour-tahina.png",
+                    categoryId: 1,
+                    category: { id: 1, name: "Objets" }
+                },
+                // Ajoutez d'autres exemples statiques ici
+            ];
+            createImg(staticData);
+            createImgModal(staticData);
+            buttonRadio(staticData);
+        }
+    }
 };
 
 // Appel de la fonction principale pour récupérer les données et initialiser l'affichage
